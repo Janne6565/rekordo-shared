@@ -18,10 +18,7 @@
     },
     "./merge-fixture.json": "./src/domain/merge-fixture.json"
   },
-  "files": [
-    "dist",
-    "src/domain/merge-fixture.json"
-  ],
+  "files": ["dist", "src/domain/merge-fixture.json"],
   "sideEffects": false,
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

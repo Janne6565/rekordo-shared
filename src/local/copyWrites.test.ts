@@ -80,6 +80,7 @@ describe("createCopy", () => {
         "rating",
         "releaseId",
         "sleeveCondition",
+        "sortIndex",
       ].sort(),
     );
     expect(new Set(Object.values(copy.fieldClocks)).size).toBe(1);

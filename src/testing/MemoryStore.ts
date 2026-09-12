@@ -75,6 +75,13 @@ export class MemoryStore implements LocalStore {
     this.markPending(copy.id);
   }
 
+  async putCopies(copies: readonly Copy[]): Promise<void> {
+    for (const copy of copies) {
+      this.copies.set(copy.id, copy);
+      this.markPending(copy.id);
+    }
+  }
+
   async adoptCopy(copy: Copy): Promise<void> {
     this.copies.set(copy.id, copy);
   }

@@ -25,6 +25,7 @@ function copy(overrides: Partial<Copy> = {}): Copy {
     notesConflict: null,
     rating: 4,
     hidden: false,
+    sortIndex: null,
     createdAt: 1000,
     deletedAt: null,
     fieldClocks: {} as Copy["fieldClocks"],

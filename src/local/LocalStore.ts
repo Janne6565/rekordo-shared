@@ -1,3 +1,4 @@
+import type { LibrarySort } from "../domain/library.js";
 import type {
   CollectionStats,
   Condition,
@@ -13,7 +14,12 @@ export interface LibraryFilter {
   /** The grade rail from screen 1f. Null — or absent — is every grade, ungraded included. */
   readonly condition?: Condition | null;
   readonly search?: string;
-  readonly sort?: "ADDED_DESC" | "ARTIST_ASC" | "YEAR_DESC";
+  /**
+   * Which order to read the shelf in. `MANUAL` is the one somebody dragged into place --
+   * see `library.ts`, and `compareManualOrder` for the rule each store implements in its
+   * own query language.
+   */
+  readonly sort?: LibrarySort;
 }
 
 /**
@@ -39,6 +45,17 @@ export interface LocalStore {
    * the call site — a write that forgot would simply never reach the server.
    */
   putCopy(copy: Copy): Promise<void>;
+  /**
+   * Many local writes at once, as one transaction and one pass over the pending list.
+   *
+   * Exists for arranging a shelf, which is the only thing in the app that writes to every
+   * record at once: the first drag on a shelf that has never been arranged gives all of
+   * them a `sortIndex`. Looping `putCopy` does that in n transactions while re-reading and
+   * re-writing the whole pending-id list each time, which is quadratic in the size of the
+   * collection -- on a shelf of a few hundred records, long enough to be visible as the
+   * gesture not having been taken.
+   */
+  putCopies(copies: readonly Copy[]): Promise<void>;
   /** A write that came from sync. Deliberately does not mark the copy pending, or the
    * client would push straight back what it just pulled, forever. */
   adoptCopy(copy: Copy): Promise<void>;

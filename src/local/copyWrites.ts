@@ -67,6 +67,9 @@ function stampedCopy(
     notesConflict: null,
     rating: draft.rating,
     hidden: false,
+    // Unplaced, which is not position 0 -- a record filed onto a hand-arranged shelf
+    // belongs where new records belong, not at the front of an order it was never part of.
+    sortIndex: null,
     createdAt: now,
     deletedAt: null,
     fieldClocks,
@@ -139,7 +142,7 @@ export function resolveScannedCopy(copy: Copy, releaseId: string, clock: ClockSo
  * and saved by the same press. `applyCopyPatch` restamps per key either way.
  */
 export type CopyPatch = Partial<
-  CopyDraft & ManualRelease & Pick<Copy, "hidden" | "releaseId" | "pendingBarcode">
+  CopyDraft & ManualRelease & Pick<Copy, "hidden" | "releaseId" | "pendingBarcode" | "sortIndex">
 >;
 
 /**

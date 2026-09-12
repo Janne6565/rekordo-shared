@@ -88,6 +88,9 @@ function stampedCopy(
     notesConflict: null,
     rating: draft.rating,
     hidden: false,
+    // Unplaced, which is not position 0 -- a record filed onto a hand-arranged shelf
+    // belongs where new records belong, not at the front of an order it was never part of.
+    sortIndex: null,
     createdAt: now,
     deletedAt: null,
     fieldClocks,

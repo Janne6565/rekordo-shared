@@ -136,6 +136,7 @@ export const COPY_MERGEABLE_FIELDS = [
   "notes",
   "rating",
   "hidden",
+  "sortIndex",
   "deletedAt",
 ] as const;
 export type CopyMergeableField = (typeof COPY_MERGEABLE_FIELDS)[number];
@@ -310,6 +311,19 @@ export interface Copy extends ManualRelease {
    * client older than this field sends nothing, which reads as not hidden.
    */
   readonly hidden: boolean;
+  /**
+   * Where this copy sits on a shelf that has been arranged by hand, or `null` while it
+   * never has been -- the same field, with the same rules, that {@link WishlistItem} has.
+   *
+   * Synced rather than device-local because arranging a shelf is a statement about the
+   * collection: putting the records you actually reach for at the top is a thing you mean,
+   * not a preference of the phone you happened to do it on.
+   *
+   * Null is not position 0. A copy filed since the last arranging sorts *after* every
+   * placed one, newest first among themselves, so a new record surfaces where new records
+   * belong instead of silently jumping to the front of an order it was never part of.
+   */
+  readonly sortIndex: number | null;
   readonly createdAt: number;
   /** Tombstone. Deletes have to be represented, or sync would resurrect the row. */
   readonly deletedAt: number | null;

@@ -169,7 +169,9 @@ export function resolveScannedCopy(
  * and saved by the same press. `applyCopyPatch` restamps per key either way.
  */
 export type CopyPatch = Partial<
-  CopyDraft & ManualRelease & Pick<Copy, "hidden" | "albumId" | "releaseId" | "pendingBarcode">
+  CopyDraft &
+    ManualRelease &
+    Pick<Copy, "hidden" | "albumId" | "releaseId" | "pendingBarcode" | "sortIndex">
 >;
 
 /**

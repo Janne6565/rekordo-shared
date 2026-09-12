@@ -1,3 +1,4 @@
+import type { LibrarySort } from "../domain/library.js";
 import type {
   CollectionStats,
   Condition,
@@ -13,7 +14,12 @@ export interface LibraryFilter {
   /** The grade rail from screen 1f. Null — or absent — is every grade, ungraded included. */
   readonly condition?: Condition | null;
   readonly search?: string;
-  readonly sort?: "ADDED_DESC" | "ARTIST_ASC" | "YEAR_DESC";
+  /**
+   * Which order to read the shelf in. `MANUAL` is the one somebody dragged into place --
+   * see `library.ts`, and `compareManualOrder` for the rule each store implements in its
+   * own query language.
+   */
+  readonly sort?: LibrarySort;
 }
 
 /**

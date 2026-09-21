@@ -19,6 +19,7 @@ export * from "./domain/passwordStrength.js";
 export * from "./domain/barcode.js";
 export * from "./domain/copyFormat.js";
 export * from "./domain/albumResults.js";
+export * from "./domain/pressingList.js";
 export * from "./domain/library.js";
 export * from "./domain/wishlist.js";
 export * from "./domain/preview.js";

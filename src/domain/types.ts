@@ -81,6 +81,14 @@ export interface Album {
   /** Album, EP, Single, Broadcast, Compilation — how the artist screen sections itself. */
   readonly primaryType: string | null;
   readonly coverArtUrl: string | null;
+  /**
+   * Apple's artwork as a resizable template, or null from a catalogue without one.
+   *
+   * Carries literal `{w}x{h}` placeholders, so a row asks for the size it draws: the same
+   * sleeve is 8 KB at 112px and 45 KB at 600. Read it through `albumCoverUrl`, which falls
+   * back to `coverArtUrl` for a Discogs answer, where one fixed image is all there is.
+   */
+  readonly coverArtTemplate?: string | null;
 }
 
 export interface Release {

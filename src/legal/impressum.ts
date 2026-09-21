@@ -5,7 +5,7 @@ import type { LegalDocument } from "./types.js";
  * Provider identification under § 5 DDG.
  *
  * Short, and most of it is a legal requirement rather than a choice. Two sections are not:
- * the catalogue attribution, which sits here because MusicBrainz and Discogs ask to be
+ * the catalogue attribution, which sits here because Apple, MusicBrainz and Discogs all ask to be
  * credited where a reader will actually find it and nobody scrolls a privacy policy looking
  * for it; and "Art des Angebots", which says outright that this is a private, non-commercial
  * project — the fact the rest of the document has to stay consistent with, and the reason
@@ -16,8 +16,8 @@ import type { LegalDocument } from "./types.js";
  */
 export const IMPRESSUM: LegalDocument = {
   id: "impressum",
-  version: "1.1",
-  effective: "2026-09-01",
+  version: "1.2",
+  effective: "2026-09-21",
   title: { de: "Impressum", en: "Impressum" },
   lede: {
     de: "Angaben gemäß § 5 DDG",
@@ -97,8 +97,8 @@ export const IMPRESSUM: LegalDocument = {
       heading: { de: "Katalogdaten", en: "Catalogue data" },
       paragraphs: [
         {
-          de: "Release- und Coverdaten stammen von MusicBrainz und Discogs und stehen unter den Lizenzbedingungen der jeweiligen Anbieter. Rechte an Coverabbildungen liegen bei den Rechteinhabern.",
-          en: "Release and cover data come from MusicBrainz and Discogs and are subject to those providers' licence terms. Rights in cover artwork remain with their rights holders.",
+          de: "Release- und Coverdaten stammen von Apple Music, MusicBrainz und Discogs und stehen unter den Lizenzbedingungen der jeweiligen Anbieter. Rechte an Coverabbildungen liegen bei den Rechteinhabern.",
+          en: "Release and cover data come from Apple Music, MusicBrainz and Discogs and are subject to those providers' licence terms. Rights in cover artwork remain with their rights holders.",
         },
       ],
     },

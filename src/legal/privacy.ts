@@ -16,11 +16,17 @@ import type { LegalDocument } from "./types.js";
  * Expo, and cover images that the device fetches straight from the Cover Art Archive and
  * Discogs. 1.0 said "no analytics or tracking" and "no cookie banner" while the web app
  * was asking for exactly that consent.
+ *
+ * 1.2 (2026-09-21) names Apple. Title search moved to the Apple Music catalogue and artwork
+ * with it, so the search term reaches a recipient the 1.1 text did not list and the device
+ * fetches covers straight from mzstatic.com. Apple does not participate in the EU-US Data
+ * Privacy Framework, relying on the Global CBPR and PRP systems instead, so the transfer
+ * stays on Art. 49 (1) (b) rather than moving to an adequacy decision.
  */
 export const PRIVACY_POLICY: LegalDocument = {
   id: "privacy",
-  version: "1.1",
-  effective: "2026-09-14",
+  version: "1.2",
+  effective: "2026-09-21",
   title: { de: "Datenschutzerklärung", en: "Privacy policy" },
   lede: {
     de: "Informationen nach Art. 13 und 14 DSGVO",
@@ -107,8 +113,8 @@ export const PRIVACY_POLICY: LegalDocument = {
           en: "Bot protection: when you register, sign in or reset a password, Cloudflare Turnstile (Cloudflare, Inc., USA) checks that a person is making the request. Cloudflare processes your IP address and technical characteristics of your browser and device for this. The basis is Art. 6 (1) (f) GDPR; Cloudflare is certified under the EU-US Data Privacy Framework.",
         },
         {
-          de: "Katalogabfragen: bei Suche und Barcode-Scan wird der Suchbegriff über unseren Server an die MetaBrainz Foundation (MusicBrainz, USA) und Discogs / Zink Media (USA) übermittelt. Cover-Bilder lädt dein Gerät direkt von Cover Art Archive (Internet Archive, USA) und Discogs, sobald sie angezeigt werden; dabei erfahren diese Anbieter deine IP-Adresse. Grundlage ist Art. 6 Abs. 1 lit. b DSGVO, die Übermittlung in die USA stützt sich auf Art. 49 Abs. 1 lit. b DSGVO. Wer das vermeiden möchte, legt Exemplare von Hand und ohne Katalog-Cover an.",
-          en: "Catalogue lookups: when you search or scan a barcode, the search term is passed via our server to the MetaBrainz Foundation (MusicBrainz, USA) and Discogs / Zink Media (USA). Your device loads cover images directly from the Cover Art Archive (Internet Archive, USA) and Discogs whenever they are shown, and those providers learn your IP address in doing so. The basis is Art. 6 (1) (b) GDPR; the transfer to the USA relies on Art. 49 (1) (b) GDPR. If you would rather avoid this, enter copies by hand and without catalogue covers.",
+          de: "Katalogabfragen: bei der Titelsuche wird der Suchbegriff über unseren Server an Apple Inc. (Apple-Music-Katalog), USA, übermittelt. Beim Barcode-Scan und beim Nachschlagen einer bestimmten Pressung geht er stattdessen über unseren Server an die MetaBrainz Foundation (MusicBrainz, USA) und Discogs / Zink Media (USA). Cover-Bilder lädt dein Gerät direkt von Apple (mzstatic.com), vom Cover Art Archive (Internet Archive, USA) und von Discogs, sobald sie angezeigt werden; dabei erfahren diese Anbieter deine IP-Adresse. Grundlage ist Art. 6 Abs. 1 lit. b DSGVO, die Übermittlung in die USA stützt sich auf Art. 49 Abs. 1 lit. b DSGVO. Wer das vermeiden möchte, legt Exemplare von Hand und ohne Katalog-Cover an.",
+          en: "Catalogue lookups: when you search by title, the search term is passed via our server to Apple Inc. (Apple Music catalogue), USA. When you scan a barcode or look up a particular pressing, it goes via our server to the MetaBrainz Foundation (MusicBrainz, USA) and Discogs / Zink Media (USA) instead. Your device loads cover images directly from Apple (mzstatic.com), the Cover Art Archive (Internet Archive, USA) and Discogs whenever they are shown, and those providers learn your IP address in doing so. The basis is Art. 6 (1) (b) GDPR; the transfer to the USA relies on Art. 49 (1) (b) GDPR. If you would rather avoid this, enter copies by hand and without catalogue covers.",
         },
         {
           de: "Push-Benachrichtigungen (Mobil-App): Wir senden sie über den Push-Dienst von 650 Industries, Inc. (Expo), USA, der sie an Apple (Apple Push Notification Service) oder Google (Firebase Cloud Messaging) weitergibt. Übermittelt werden Push-Token und Inhalt der Mitteilung. Mitteilungen lassen sich in der App stummschalten oder in den Systemeinstellungen abschalten.",

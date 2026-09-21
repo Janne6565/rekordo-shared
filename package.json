@@ -1,6 +1,6 @@
 {
   "name": "@janne6565/rekordo-shared",
-  "version": "0.35.0",
+  "version": "0.36.0",
   "description": "Shared domain, merge and sync logic for the Rekordo web and mobile apps",
   "license": "MIT",
   "repository": {
@@ -18,7 +18,10 @@
     },
     "./merge-fixture.json": "./src/domain/merge-fixture.json"
   },
-  "files": ["dist", "src/domain/merge-fixture.json"],
+  "files": [
+    "dist",
+    "src/domain/merge-fixture.json"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

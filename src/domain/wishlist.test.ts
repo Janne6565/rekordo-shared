@@ -53,14 +53,14 @@ describe("sortWishlist", () => {
     expect(ids(items)).toEqual(["a", "b", "c"]);
   });
 
-  it("puts entries added since the last drag after the placed ones, newest first", () => {
+  it("puts entries added since the last drag before the placed ones, newest first", () => {
     const placed = [
       wish({ id: "one", sortIndex: 1 }),
       wish({ id: "zero", sortIndex: 0 }),
       wish({ id: "fresh", sortIndex: null, createdAt: 50 }),
       wish({ id: "fresher", sortIndex: null, createdAt: 80 }),
     ];
-    expect(ids(sortWishlist(placed, "MANUAL"))).toEqual(["zero", "one", "fresher", "fresh"]);
+    expect(ids(sortWishlist(placed, "MANUAL"))).toEqual(["fresher", "fresh", "zero", "one"]);
   });
 });
 

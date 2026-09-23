@@ -54,9 +54,12 @@ const byTitle = (a: WishlistItem, b: WishlistItem): number =>
 /**
  * Applies a sort. Never mutates the input — both clients hand it a query result.
  *
- * Entries with no `sortIndex` sort *after* the placed ones under `MANUAL`, newest first
- * among themselves: something added since the last drag is new, and burying it at position
- * zero of an order it was never part of would hide it.
+ * Entries with no `sortIndex` sort *before* the placed ones under `MANUAL`, newest first
+ * among themselves: something added since the last drag is new, and the top of the list is
+ * where somebody who just added it looks for it. They used to go to the bottom, which on a
+ * list of any length put a fresh wish below the fold. Only the comparator decides this --
+ * nothing is written on add, so sync and the stored order are untouched, and the next drag
+ * places the new entries wherever they then sit.
  */
 export function sortWishlist(
   items: readonly WishlistItem[],
@@ -75,8 +78,8 @@ export function sortWishlist(
     case "MANUAL":
       return sorted.sort((a, b) => {
         if (a.sortIndex === null && b.sortIndex === null) return b.createdAt - a.createdAt;
-        if (a.sortIndex === null) return 1;
-        if (b.sortIndex === null) return -1;
+        if (a.sortIndex === null) return -1;
+        if (b.sortIndex === null) return 1;
         return a.sortIndex - b.sortIndex;
       });
   }

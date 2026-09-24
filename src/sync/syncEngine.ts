@@ -11,6 +11,7 @@ import {
 import type { LocalStore } from "../local/LocalStore.js";
 import { type CopyPatch, applyCopyPatch, tombstoneCopy } from "../local/copyWrites.js";
 import type { ClockSource } from "../local/copyWrites.js";
+import { unobservedStore } from "../local/localWrites.js";
 import { markUploaded } from "../local/photoWrites.js";
 import { type WishPatch, applyWishPatch, tombstoneWishlistItem } from "../local/wishWrites.js";
 import {
@@ -97,11 +98,18 @@ interface ReleaseRefill {
 }
 
 export class SyncEngine {
+  private readonly store: LocalStore;
+
   constructor(
-    private readonly store: LocalStore,
+    store: LocalStore,
     private readonly clock: ClockSource,
     private readonly transport: SyncTransport,
-  ) {}
+  ) {
+    // The engine's own writes are pushed by the pass that made them, or by the one it runs
+    // straight after. Announced as local writes, they would wake another pass behind every
+    // sync that uploaded a photo. See `observeLocalWrites`.
+    this.store = unobservedStore(store);
+  }
 
   /**
    * Deletes go through the same stamped write path as any other edit. An unstamped

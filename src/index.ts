@@ -26,6 +26,7 @@ export * from "./domain/preview.js";
 
 // The write path. Every edit is stamped here, or it loses every merge it takes part in.
 export * from "./local/LocalStore.js";
+export * from "./local/localWrites.js";
 export * from "./local/copyWrites.js";
 export * from "./local/photoWrites.js";
 export * from "./local/releaseCache.js";
@@ -35,6 +36,8 @@ export * from "./local/wishWrites.js";
 export * from "./sync/conflict.js";
 export * from "./sync/pendingScans.js";
 export * from "./sync/syncEngine.js";
+export * from "./sync/syncScheduler.js";
+export * from "./sync/useSyncLoop.js";
 export * from "./sync/transport.js";
 export * from "./sync/uploadRefusal.js";
 

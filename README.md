@@ -24,6 +24,7 @@ differently**, or store the same input as **different values**, it is shared:
 | The stamped write path | `local/copyWrites.ts`, `local/photoWrites.ts`, `local/wishWrites.ts` |
 | The storage contract | `local/LocalStore.ts` |
 | Reconciliation | `sync/syncEngine.ts`, `sync/transport.ts` |
+| When a sync pass runs | `sync/syncScheduler.ts`, `sync/useSyncLoop.ts`, `local/localWrites.ts` |
 | Screen logic drawn two ways | `detail/theme.ts`, `detail/useCopyEditorLogic.ts` |
 
 Rendering, storage engines and API clients are **not** shared. Dexie/IndexedDB on the web

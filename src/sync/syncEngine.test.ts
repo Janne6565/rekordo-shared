@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { hlcInitial, hlcTick } from "../domain/hlc.js";
-import type { Copy, Release } from "../domain/types.js";
+import type { Copy, Photo, Release } from "../domain/types.js";
 import { type ClockSource, createCopy, tombstoneCopy } from "../local/copyWrites.js";
-import { createPhoto } from "../local/photoWrites.js";
+import { ORPHAN_PHOTO_GRACE_MS } from "../local/orphanPhotos.js";
+import { createPhoto, markUploaded } from "../local/photoWrites.js";
 import { createWishlistItem } from "../local/wishWrites.js";
 import { MemoryStore } from "../testing/MemoryStore.js";
 import { SyncEngine } from "./syncEngine.js";
@@ -206,6 +207,28 @@ describe("SyncEngine", () => {
     const pushed = push.mock.calls[0]?.[0] as Copy[];
     expect(pushed).toHaveLength(1);
     expect(pushed[0]?.deletedAt).toBe(5000);
+  });
+
+  it("puts down a removed copy's photos in the same pass, once Undo is out of reach", async () => {
+    await store.cacheReleases([release]);
+    const copy = createCopy(release, draft, clock, 1000, "copy-1");
+    await store.putCopy(tombstoneCopy(copy, clock, Date.now() - ORPHAN_PHOTO_GRACE_MS - 1));
+    // Uploaded: a photo that never was has nothing on the server to delete, and its
+    // tombstone is dropped rather than pushed.
+    const taken = createPhoto(
+      { copyId: "copy-1", contentType: "image/jpeg", byteSize: 1200, sortIndex: 0 },
+      clock,
+      1000,
+      "photo-1",
+    );
+    await store.putPhoto(markUploaded(taken, "photos/photo-1", clock));
+
+    await engine.sync();
+
+    const photos = push.mock.calls[0]?.[2] as Photo[];
+    expect(photos.map((photo) => [photo.id, photo.deletedAt !== null])).toEqual([
+      ["photo-1", true],
+    ]);
   });
 
   describe("the catalogue behind pulled copies", () => {

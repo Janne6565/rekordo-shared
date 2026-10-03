@@ -12,6 +12,7 @@ import type { LocalStore } from "../local/LocalStore.js";
 import { type CopyPatch, applyCopyPatch, tombstoneCopy } from "../local/copyWrites.js";
 import type { ClockSource } from "../local/copyWrites.js";
 import { unobservedStore } from "../local/localWrites.js";
+import { sweepOrphanPhotos } from "../local/orphanPhotos.js";
 import { markUploaded } from "../local/photoWrites.js";
 import { type WishPatch, applyWishPatch, tombstoneWishlistItem } from "../local/wishWrites.js";
 import {
@@ -355,6 +356,9 @@ export class SyncEngine {
     } catch {
       // Offline, or the server is down. Unmarked, so the next sync offers it again.
     }
+    // After the pull, so a removal made on another device counts; before the push, so the
+    // photos it puts down go up in this same pass.
+    await sweepOrphanPhotos(this.store, this.clock, Date.now());
     const pushed = await this.pushPending();
     return {
       pulled: pulled.copies.length + pulled.wishes.length + pulled.photos.length,

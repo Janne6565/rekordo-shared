@@ -29,6 +29,7 @@ export * from "./local/LocalStore.js";
 export * from "./local/localWrites.js";
 export * from "./local/copyWrites.js";
 export * from "./local/photoWrites.js";
+export * from "./local/orphanPhotos.js";
 export * from "./local/releaseCache.js";
 export * from "./local/wishWrites.js";
 
